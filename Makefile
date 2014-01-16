@@ -11,8 +11,8 @@ builddir:
 
 codecs: builddir
 	@for item in ${CODECS} ; do \
-		bsdconv-mktable codecs/$${item}.txt ./build/share/bsdconv/$${item} ; \
-		if [ -e codecs/$${item}.c ]; then $(CC) ${CFLAGS} codecs/$${item}.c -L./build/lib/ -fPIC -shared -o ./build/share/bsdconv/$${item}.so -lbsdconv ${LIBS} ; fi ; \
+		bsdconv-mktable modules/$${item}.txt ./build/share/bsdconv/$${item} ; \
+		if [ -e modules/$${item}.c ]; then $(CC) ${CFLAGS} modules/$${item}.c -L./build/lib/ -fPIC -shared -o ./build/share/bsdconv/$${item}.so -lbsdconv ${LIBS} ; fi ; \
 	done
 
 clean:
@@ -34,6 +34,6 @@ gen:
 	#TW_JUDICIAL_PUA
 	wget -O /tmp/TW_JUDICIAL_PUA.pdf ${TW_JUDICIAL_PUA}
 	pdftotext /tmp/TW_JUDICIAL_PUA.pdf
-	echo "#Source:" ${TW_JUDICIAL_PUA} > codecs/inter/TW-JUDICIAL-PUA.txt
-	python tools/tw-judicial-pua.py /tmp/TW_JUDICIAL_PUA.txt | sort >> codecs/inter/TW-JUDICIAL-PUA.txt
+	echo "#Source:" ${TW_JUDICIAL_PUA} > modules/inter/TW-JUDICIAL-PUA.txt
+	python tools/tw-judicial-pua.py /tmp/TW_JUDICIAL_PUA.txt | sort >> modules/inter/TW-JUDICIAL-PUA.txt
 	rm -rf /tmp/TW_JUDICIAL_PUA.pdf /tmp/TW_JUDICIAL_PUA.txt
