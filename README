@@ -1,2 +1,32 @@
 Content:
-	Judicial-PUA
+	TW-JUDICIAL-PUA-XP: PUA assignments from the Big5 jfontXP.exe package
+	TW-JUDICIAL-PUA-UNICODE: PUA assignments from the Unicode jfontEUDC.exe package
+
+Regenerate both codecs:
+	make gen
+
+Regenerate either codec separately:
+	make gen_judical_pua_xp
+	make gen_judical_pua_unicode
+
+The generators download the respective official package from
+https://jfont.judicial.gov.tw/jfont/setup_font.html, extract 造字對照表.pdf
+with bsdtar, and read it with pdftotext -layout. Each existing mapping file
+is replaced only after its generation succeeds. The two packages assign
+different characters to some of the same PUA code points; choose the codec
+matching the font used by the input document.
+
+Requirements: wget, bsdtar (libarchive), pdftotext (Poppler), Python 3,
+and the Python bsdconv binding with bsdconv-cns11643 codecs installed.
+Both codecs are included in `make` and `make install`.
+
+The XP generator converts the PDF's CNS codes to Unicode where an installed
+mapping is available, and retains CNS data otherwise. XP rows with an empty
+CNS column are skipped.
+
+The Unicode generator uses a valid non-PUA value from the source Unicode
+column as a Unicode target (01). If that value is absent, private-use, or
+invalid, it uses the source CNS column as a CNS11643 target (02). Rows with
+no source mapping are skipped; the main CNS column contains judicial font
+assignments and is not used as a fallback. Unicode output for retained CNS
+data requires the corresponding CNS mappings in the installed codecs.
