@@ -1,3 +1,9 @@
+TW-JUDICIAL-PUA-XP 與 TW-JUDICIAL-PUA-UNICODE 分別對應司法院的
+Big5 造字套件（jfontXP.exe）與 Unicode 造字套件（jfontEUDC.exe），
+將文件中的 Unicode 造字區（PUA）字碼對應回非造字區 Unicode 字碼或
+CNS11643 字碼。兩套字型在相同 PUA 碼位可能配置不同的字，請依原始
+文件使用的字型選擇 codec。
+
 Content:
 	TW-JUDICIAL-PUA-XP: PUA assignments from the Big5 jfontXP.exe package
 	TW-JUDICIAL-PUA-UNICODE: PUA assignments from the Unicode jfontEUDC.exe package
